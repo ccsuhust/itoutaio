@@ -11,7 +11,8 @@
     2:${vall}sdfa
     4:$!vall
 
-    adddf
+    123
+    dsaf
 
 
     6:#foreach(${var} in ${list})
