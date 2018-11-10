@@ -38,7 +38,7 @@ public class indexController {
 //        map.put("a","11");
         map.put("b","22");
         M.addAttribute("list",list);
-        M.addAttribute("map",map);
+        //M.addAttribute("map",map);
         M.addAttribute("user",new User("xypmhyt"));
         return "news";
     }
