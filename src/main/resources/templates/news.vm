@@ -8,8 +8,7 @@
     4:$!val
     5:$!{vall}
     1:$!{vall}
-    2:${vall}
-    3:$vall
+    2:${vall}sdfa
     4:$!vall
 
 
@@ -31,7 +30,9 @@
     9:$!{user.getName}
 #set($title = "yxphappy")
     Include:#include("head.vm")<br>
+    dfas
     Parse:#parse("head.vm")
+    dfasdfa
 </pre>
 </body>
 </html>

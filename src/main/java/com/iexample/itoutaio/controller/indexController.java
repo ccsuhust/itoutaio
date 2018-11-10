@@ -35,7 +35,7 @@ public class indexController {
         M.addAttribute("val","hello");
         List<String> list = Arrays.asList(new String[]{"11","22","44"});
         Map<String,String> map = new HashMap<>();
-        map.put("a","11");
+//        map.put("a","11");
         map.put("b","22");
         M.addAttribute("list",list);
         M.addAttribute("map",map);

@@ -2,6 +2,7 @@ package com.iexample.itoutaio.model;
 
 public class User {
     String name;
+    int i;
     public User(String name)
     {
         this.name = name;
