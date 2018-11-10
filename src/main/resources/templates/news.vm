@@ -11,6 +11,8 @@
     2:${vall}sdfa
     4:$!vall
 
+    adddf
+
 
     6:#foreach(${var} in ${list})
         ${foreach.index}/${foreach.count}   ${var}
