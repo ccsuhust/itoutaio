@@ -11,17 +11,13 @@ import java.util.*;
 @SpringBootApplication
 public class ItoutaioApplication {
 
-//	public static void main(String[] args) {
-//		SpringApplication.run(ItoutaioApplication.class, args);
-//	}
-
 	public static void main(String[] args) {
-		//testSet();
-		//testMap();
-		demoCommon();
-
+		SpringApplication.run(ItoutaioApplication.class, args);
 	}
-	public static  void demoCommon(){
+
+
+
+	/*public static  void demoCommon(){
 		Random r = new Random(1);
 		for(int i=0;i<5;i++)
 		{
@@ -174,5 +170,5 @@ public class ItoutaioApplication {
 		print(8,Arrays.asList(a));
 		int[] aa=new int[]{3,5};
 		print(9,Arrays.asList(aa));
-	}
+	}*/
 }
