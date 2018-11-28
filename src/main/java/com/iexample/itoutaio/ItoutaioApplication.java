@@ -16,7 +16,6 @@ public class ItoutaioApplication {
 	}
 
 
-
 	/*public static  void demoCommon(){
 		Random r = new Random(1);
 		for(int i=0;i<5;i++)
@@ -30,7 +29,7 @@ public class ItoutaioApplication {
 		print("arrays",list);
 
 
-		//System.out.println(d.getTime());
+		System.out.println(d.getTime());
 
 		DateFormat sdf = new SimpleDateFormat("yyy/MM/dd hh:mm:ss");
 		Date d = new Date();
@@ -38,32 +37,32 @@ public class ItoutaioApplication {
 		print("Date",DateFormat.getDateInstance().format(d));
 
 		print("UUID",UUID.randomUUID());
-//		Thread thred = new Thread(){
-//			@Override
-//			public void run() {
-//				while(true){
-//					Date d = new Date();
-//					try {
-//						Thread.sleep(1000);
-//						System.out.println(sdf.format(d));
-//					}catch (Exception e){
-//						e.printStackTrace();
-//					}
-//
-//				}
-//
-//			}
-//		};
-//		thred.start();
-//		while(true){
-//			try {
-//				Thread.sleep(100);
-//				System.out.println("hello");
-//			}catch (Exception e){
-//				e.printStackTrace();
-//			}
-//
-//		}
+		Thread thred = new Thread(){
+			@Override
+			public void run() {
+				while(true){
+					Date d = new Date();
+					try {
+						Thread.sleep(1000);
+						System.out.println(sdf.format(d));
+					}catch (Exception e){
+						e.printStackTrace();
+					}
+
+				}
+
+			}
+		};
+		thred.start();
+		while(true){
+			try {
+				Thread.sleep(100);
+				System.out.println("hello");
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+
+		}
 
 
 	}

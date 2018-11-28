@@ -42,11 +42,11 @@ public class indexController {
     public String admin(@RequestParam(value = "key" ,required = false) String key)
     {
         System.out.println("key");
-       if(key!=null&&key.equals("admin"))
-       {
-           return  "hello admin";
-       }
-       throw new IllegalArgumentException("key error");
+        if(key!=null&&key.equals("admin"))
+        {
+            return  "hello admin";
+        }
+        throw new IllegalArgumentException("key error");
 
     }
     @ResponseBody
@@ -62,7 +62,7 @@ public class indexController {
                           @PathVariable("userId") String userId,
                           @RequestParam(value = "key" ,defaultValue = "default") Integer key,
                           @RequestParam(value = "type" ,defaultValue = "default") Integer type
-                          )
+    )
     {
         return String.format("%s %s %d %d\n",groupId,userId,key,type);
     }
@@ -109,7 +109,7 @@ public class indexController {
     public String redirect(@PathVariable("code") int code,
                            HttpSession hs
 
-                           )
+    )
     {
         /*RedirectView rv = new RedirectView("/",true);
         if(code == 301)

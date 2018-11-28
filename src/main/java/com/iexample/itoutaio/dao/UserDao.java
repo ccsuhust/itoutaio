@@ -3,30 +3,13 @@ package com.iexample.itoutaio.dao;
 import com.iexample.itoutaio.model.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
-
 /*
-* CREATE TABLE `user` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(64) NOT NULL DEFAULT '',
-  `password` varchar(128) NOT NULL DEFAULT '',
-  `salt` varchar(32) NOT NULL DEFAULT '',
-  `head_url` varchar(256) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-DROP TABLE IF EXISTS `news`;
-CREATE TABLE `news` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(128) NOT NULL DEFAULT '',
-  `link` varchar(256) NOT NULL DEFAULT '',
-  `image` varchar(256) NOT NULL DEFAULT '',
-  `like_count` int NOT NULL,
-  `comment_count` int NOT NULL,
-  `created_date` datetime NOT NULL,
-  `user_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;*/
+* private int id;
+    private String name;
+    private String password;
+    private String salt;
+    private String headUrl;
+* */
 @Component
 @Mapper
 public interface UserDao {
@@ -40,7 +23,10 @@ public interface UserDao {
     int updateUser(User user);
 
     @Select({"select ",SELECT_FIELD," from ",TABLE_NAME," where id = #{id}"})
-    User selectUser(int id);
+    User selectUserById(int id);
+
+    @Select({"select ",SELECT_FIELD," from ",TABLE_NAME," where name = #{name}"})
+    User selectUserByName(String name);
 
     @Delete({"delete from ",TABLE_NAME," where id = #{id}"})
     int delectUser(int id);
