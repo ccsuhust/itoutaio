@@ -46,5 +46,17 @@ public class NewsService {
         newsDao.addNews(news);
         return  news.getUserId();
     }
+    public News getById(int newsId)
+    {
+        return newsDao.selectNews(newsId);
+    }
+    public int updateNewsComment_count(int id,int comment_count)
+    {
+        return newsDao.updateNewsComment_count(id,comment_count);
+    }
+    public int updateNewsLike_count(int id,int like_count)
+    {
+        return newsDao.updateNewsLike_count(id,like_count);
+    }
 
 }

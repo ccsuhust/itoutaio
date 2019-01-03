@@ -82,7 +82,7 @@ public class UserService {
         if((ToutiaoUtil.MD5(password+user.getSalt())).equals(user.getPassword()))
         {
             String ticket = addLoginTicket(user.getId());
-            map.put("user",user);
+            map.put("userId",user.getId());
             map.put("ticket",ticket);
             return map;
         }

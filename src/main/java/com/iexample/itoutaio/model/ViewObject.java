@@ -15,4 +15,5 @@ public class ViewObject {
     public Object get(String key) {
         return objs.get(key);
     }
+
 }

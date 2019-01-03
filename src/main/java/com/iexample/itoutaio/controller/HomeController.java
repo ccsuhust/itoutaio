@@ -2,10 +2,8 @@
 package com.iexample.itoutaio.controller;
 
 import com.iexample.itoutaio.dao.UserDao;
-import com.iexample.itoutaio.model.HostHolder;
-import com.iexample.itoutaio.model.News;
-import com.iexample.itoutaio.model.User;
-import com.iexample.itoutaio.model.ViewObject;
+import com.iexample.itoutaio.model.*;
+import com.iexample.itoutaio.service.LikeService;
 import com.iexample.itoutaio.service.NewsService;
 import com.iexample.itoutaio.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +25,13 @@ public class HomeController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    LikeService likeService;
 
     /*通过ID得到消息列表 若ID为0 展示所有人的消息*/
     private List<ViewObject>  addAttribute(int userID, int offset, int limit){
         List<ViewObject> vos = new ArrayList<>();
+        int localUserId = hostHolder.getUser()!=null?hostHolder.getUser().getId():0;
         List<News> lastNews = newsService.getLastNews(userID, 0, 10);
         for(News news:lastNews)
         {
@@ -38,6 +39,13 @@ public class HomeController {
             ViewObject vo = new ViewObject();
             vo.set("user",user);
             vo.set("news",news);
+            //登录状态 设置首页喜欢或不喜欢状态
+            if(localUserId !=0)
+            {
+                vo.set("like",likeService.getLikeStatus(localUserId, EntityType.ENTITY_NEWS,news.getId()));//当前资讯 当前用户看的状态
+            }else {
+                vo.set("like",0);
+            }
             vos.add(vo);
         }
         return vos;

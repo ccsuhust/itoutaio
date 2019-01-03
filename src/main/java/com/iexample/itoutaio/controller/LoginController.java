@@ -1,5 +1,8 @@
 package com.iexample.itoutaio.controller;
 
+import com.iexample.itoutaio.async.EventModel;
+import com.iexample.itoutaio.async.EventProducer;
+import com.iexample.itoutaio.async.EventType;
 import com.iexample.itoutaio.model.News;
 import com.iexample.itoutaio.model.User;
 import com.iexample.itoutaio.model.ViewObject;
@@ -29,6 +32,8 @@ public class LoginController {
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
     @Autowired
     UserService userService;
+    @Autowired
+    EventProducer eventProducer;
 
 
     /*注册方法
@@ -78,8 +83,8 @@ public class LoginController {
     @ResponseBody
     public String login(Model model, @RequestParam("username") String username, @RequestParam("password") String password, @RequestParam(value = "rember" ,defaultValue = "0")  int rememberme,HttpServletResponse response) {
         try {
-            Map<String, Object> map = new HashMap<>();
-            map = userService.login(username, password);
+            Map<String, Object> map ;
+            map = userService.login(username, password);//service登录成功 ，返回带ticket的map
             /*登录成功*/
             if (map.containsKey("ticket")) {
                // model.addAttribute("user",map.get("user"));
@@ -93,6 +98,11 @@ public class LoginController {
                     cookie.setMaxAge(1000*3600*24);
                 }
                 response.addCookie(cookie);
+
+                eventProducer.fireEvent(new EventModel(EventType.LOGIN)
+                        .setActorId((int)map.get("userId"))
+                        .setExt("username",username).setExt("email","**@qq.com"));//发送邮件的目标地址
+
                 return ToutiaoUtil.getJSONString(0, "登录成功");
                 //return "home";
             } else {
@@ -114,6 +124,11 @@ public class LoginController {
             logger.error("注册异常" + e.getMessage());
             return ToutiaoUtil.getJSONString(2, "登录异常%");
         }
+    }
+    @RequestMapping(path = {"/logout"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public String logout(@CookieValue("ticket") String ticket) {
+        userService.logout(ticket);
+        return "redirect:/";
     }
 
 }
