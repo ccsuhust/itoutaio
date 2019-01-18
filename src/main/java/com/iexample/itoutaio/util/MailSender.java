@@ -31,7 +31,7 @@ public class MailSender implements InitializingBean {
                                         String template, Map<String, Object> model) {
         try {
             String nick = MimeUtility.encodeText("牛客中级课");
-            InternetAddress from = new InternetAddress(nick + "<***@163.com>");
+            InternetAddress from = new InternetAddress(nick + "<13129965889@163.com>");
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
             //spring 内置的模板引擎 把模板渲染出来
@@ -53,9 +53,10 @@ public class MailSender implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
+
         mailSender = new JavaMailSenderImpl();
-        mailSender.setUsername("***");//用户名
-        mailSender.setPassword("***");//密码
+        mailSender.setUsername("13129965889@163.com");//用户名
+        mailSender.setPassword("cl1111111");//密码
         mailSender.setHost("smtp.163.com");//发送的服务器
         mailSender.setPort(465);//端口
         mailSender.setProtocol("smtps");

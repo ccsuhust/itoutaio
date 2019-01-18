@@ -18,6 +18,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 //import java.util.logging.Logger;
+/*
+* InitializingBean接口
+InitializingBean接口为bean提供了初始化方法的方式，它只包括afterPropertiesSet方法，凡是继承该接口的类，在初始化bean的时候会执行该方法。
+
+当spring实例化bean时，它会查找类似ApplicationContextAware和的几个接口InitializingBean。如果找到它们，则调用这些方法。例如（非常简化）
+Class<?> beanClass = beanDefinition.getClass();
+Object bean = beanClass.newInstance();
+if (bean instanceof ApplicationContextAware) {
+    ((ApplicationContextAware) bean).setApplicationContext(ctx);
+}
+请注意，在较新的版本中，最好使用注释，而不是实现特定于Spring的接口。现在你可以简单地使用：
+@Inject // or @Autowired
+private ApplicationContext ctx;
+* */
 @Service
 public class EventConsumer implements InitializingBean, ApplicationContextAware {
     private static final Logger logger = LoggerFactory.getLogger(EventConsumer.class);
@@ -29,18 +43,26 @@ public class EventConsumer implements InitializingBean, ApplicationContextAware 
     @Override//初始化工作
     public void afterPropertiesSet() throws Exception {
 
+        //<T> Map<String, T> getBeansOfType(Class<T> var1) throws BeansException;
+        //beans = {<"1","likeHandler"> <"2","LoginExceptionHandler">}
         Map<String ,EventHandler> beans =applicationContext.getBeansOfType(EventHandler.class);
         if(beans!=null)
         {
+            //只关心EventHandler 把之前每个事件处理者（key 如likeHandler） 与 事件类型集合(value 如like like1) 一一对应 转化为 每个事件类型（key 如like） 与 与此相关的事件处理者集合（value 如 likeHandler like2Handler） 一一对应
+            //处理原因是因为 redis事件队列保存的每个事件 EventConsumer根据收到的事件类型选取对应相关的事件处理者
+
+            //entry = {<"1","likeHandler"> <"2","LoginExceptionHandler">}
             for(Map.Entry<String,EventHandler> entry:beans.entrySet())
             {
-                List<EventType> eventTypes = entry.getValue().getSupportEventTypes();
-                for(EventType type:eventTypes)
+                //eg likeHandler eventTypes = {<like>}
+                List<EventType> eventTypes = entry.getValue().getSupportEventTypes();//某个具体的EventHandler（如likeHandler）支持的EventType集合（like）
+                for(EventType type:eventTypes)//上面的EventType集合中元素作为key ，把所有与此相关的EventHandler放入value结合中
                 {
                     if(!config.containsKey(type))
                     {
                         config.put(type,new ArrayList<>());
                     }
+                    //config = {<like,[likeHandler ...]>}
                     config.get(type).add(entry.getValue());
                 }
             }

@@ -10,7 +10,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
-//因为EventProducer需要给各种各样的业务用 所以是个service\
+//因为EventProducer需要给各种各样的业务用 所以是个service
 /*
 * 把事件序列化后放到redis队列中
 * */

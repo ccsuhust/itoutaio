@@ -151,6 +151,8 @@ public class NewsController {
           comment.setUserId(hostHolder.getUser().getId());
           System.out.println(comment.toString());
           System.out.println(commentService.addComment(comment));
+
+
           //更新评论数量
           int count = commentService.getCommentCount(comment.getEntityId(),comment.getEntityType());
           newsService.updateNewsComment_count(comment.getEntityId(),count);

@@ -5,7 +5,6 @@ import com.iexample.itoutaio.dao.UserDao;
 import com.iexample.itoutaio.model.HostHolder;
 import com.iexample.itoutaio.model.LoginTicket;
 import com.iexample.itoutaio.model.User;
-import jdk.internal.org.objectweb.asm.Handle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
